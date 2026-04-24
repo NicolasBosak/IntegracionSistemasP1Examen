@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  description: API para la recepción en tiempo real de pre-registros de pacientes
+    desde Admisiones hacia Facturación.
+  title: API de Integración - Clínica SaludVital
+  version: 1.0.0
+servers:
+- description: Servidor local de desarrollo
+  url: http://localhost:8080/api/v1
+paths:
+  /pre-registros:
+    post:
+      description: Recibe la información del paciente para preparar el proceso financiero.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreRegistro'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_pre_registros_post_201_response'
+          description: Pre-registro aceptado exitosamente.
+        "400":
+          description: Error en la validación de los datos (campos vacíos o formato
+            incorrecto).
+      summary: Enviar nuevo pre-registro de paciente
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+components:
+  schemas:
+    PreRegistro:
+      example:
+        full_name: Nicolas Casamen
+        insurance_code: IESS
+        patient_id: "1001"
+        appointment_date: 2026-04-22
+      properties:
+        patient_id:
+          example: "1001"
+          type: string
+        full_name:
+          example: Nicolas Casamen
+          type: string
+        appointment_date:
+          example: 2026-04-22
+          format: date
+          type: string
+        insurance_code:
+          enum:
+          - IESS
+          - PRIVADO
+          - NINGUNO
+          example: IESS
+          type: string
+      required:
+      - appointment_date
+      - full_name
+      - insurance_code
+      - patient_id
+      type: object
+    _pre_registros_post_201_response:
+      example:
+        id: id
+        mensaje: Registro procesado
+      properties:
+        id:
+          type: string
+        mensaje:
+          example: Registro procesado
+          type: string
+      type: object
+
