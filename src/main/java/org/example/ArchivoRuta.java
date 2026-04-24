@@ -2,7 +2,7 @@ package org.example;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class FileIntegrationRoute extends RouteBuilder {
+public class ArchivoRuta extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
@@ -12,7 +12,7 @@ public class FileIntegrationRoute extends RouteBuilder {
                 .routeId("ProcesamientoAdmisionesCSV")
                 .log("Iniciando procesamiento del archivo: ${file:name}")
                 .convertBodyTo(String.class)
-                .process(new ValidatorProcessor())
+                .process(new ValidacionArchivo())
                 .choice()
                 .when(header("isValidCsv").isEqualTo(true))
                 .log("RESULTADO: Válido. Moviendo a output y archive...")

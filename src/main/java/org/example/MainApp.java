@@ -6,7 +6,7 @@ public class MainApp {
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
-        main.configure().addRoutesBuilder(new FileIntegrationRoute());
+        main.configure().addRoutesBuilder(new ArchivoRuta());
 
         System.out.println("#################################################");
         System.out.println("Iniciando integración de Clínica SaludVital...");
