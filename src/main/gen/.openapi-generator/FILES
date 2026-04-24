@@ -6,9 +6,10 @@ README.md
 api/openapi.yaml
 build.gradle
 build.sbt
+docs/CrearPreRegistro201Response.md
 docs/DefaultApi.md
+docs/ErrorResponse.md
 docs/PreRegistro.md
-docs/PreRegistrosPost201Response.md
 git_push.sh
 gradle.properties
 gradle/wrapper/gradle-wrapper.jar
@@ -37,8 +38,10 @@ src/main/java/org/openapitools/client/auth/Authentication.java
 src/main/java/org/openapitools/client/auth/HttpBasicAuth.java
 src/main/java/org/openapitools/client/auth/HttpBearerAuth.java
 src/main/java/org/openapitools/client/model/AbstractOpenApiSchema.java
+src/main/java/org/openapitools/client/model/CrearPreRegistro201Response.java
+src/main/java/org/openapitools/client/model/ErrorResponse.java
 src/main/java/org/openapitools/client/model/PreRegistro.java
-src/main/java/org/openapitools/client/model/PreRegistrosPost201Response.java
 src/test/java/org/openapitools/client/api/DefaultApiTest.java
+src/test/java/org/openapitools/client/model/CrearPreRegistro201ResponseTest.java
+src/test/java/org/openapitools/client/model/ErrorResponseTest.java
 src/test/java/org/openapitools/client/model/PreRegistroTest.java
-src/test/java/org/openapitools/client/model/PreRegistrosPost201ResponseTest.java

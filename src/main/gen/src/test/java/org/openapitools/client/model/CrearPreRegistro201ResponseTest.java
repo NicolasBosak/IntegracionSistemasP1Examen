@@ -19,55 +19,38 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Arrays;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * Model tests for PreRegistro
+ * Model tests for CrearPreRegistro201Response
  */
-public class PreRegistroTest {
-    private final PreRegistro model = new PreRegistro();
+public class CrearPreRegistro201ResponseTest {
+    private final CrearPreRegistro201Response model = new CrearPreRegistro201Response();
 
     /**
-     * Model tests for PreRegistro
+     * Model tests for CrearPreRegistro201Response
      */
     @Test
-    public void testPreRegistro() {
-        // TODO: test PreRegistro
+    public void testCrearPreRegistro201Response() {
+        // TODO: test CrearPreRegistro201Response
     }
 
     /**
-     * Test the property 'patientId'
+     * Test the property 'mensaje'
      */
     @Test
-    public void patientIdTest() {
-        // TODO: test patientId
+    public void mensajeTest() {
+        // TODO: test mensaje
     }
 
     /**
-     * Test the property 'fullName'
+     * Test the property 'idTransaccion'
      */
     @Test
-    public void fullNameTest() {
-        // TODO: test fullName
-    }
-
-    /**
-     * Test the property 'appointmentDate'
-     */
-    @Test
-    public void appointmentDateTest() {
-        // TODO: test appointmentDate
-    }
-
-    /**
-     * Test the property 'insuranceCode'
-     */
-    @Test
-    public void insuranceCodeTest() {
-        // TODO: test insuranceCode
+    public void idTransaccionTest() {
+        // TODO: test idTransaccion
     }
 
 }

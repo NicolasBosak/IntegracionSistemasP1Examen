@@ -1,14 +1,14 @@
 
 
-# PreRegistrosPost201Response
+# ErrorResponse
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  [optional] |
-|**mensaje** | **String** |  |  [optional] |
+|**codigo** | **String** |  |  [optional] |
+|**detalle** | **String** |  |  [optional] |
 
 
 

@@ -1,33 +1,43 @@
 openapi: 3.0.0
 info:
-  description: API para la recepción en tiempo real de pre-registros de pacientes
-    desde Admisiones hacia Facturación.
-  title: API de Integración - Clínica SaludVital
+  contact:
+    email: sncasamen@udla.edu.ec
+    name: Sebastian Nicolas Casamen Cuichan
+  description: Contrato de interfaz para la transición del modelo de transferencia
+    de archivos a una integración basada en servicios REST en tiempo real. Permite
+    el envío de pre-registros de pacientes desde Admisiones hacia Facturación.
+  title: API de Integración Clínica SaludVital - Admisiones
   version: 1.0.0
 servers:
-- description: Servidor local de desarrollo
-  url: http://localhost:8080/api/v1
+- description: Servidor de producción
+  url: https://api.saludvital.com/v1
 paths:
   /pre-registros:
     post:
-      description: Recibe la información del paciente para preparar el proceso financiero.
+      description: Envía los datos de un paciente que ha agendado una atención para
+        su procesamiento financiero inmediato.
+      operationId: crearPreRegistro
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PreRegistro'
+        description: Objeto JSON con la información obligatoria del paciente.
         required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/_pre_registros_post_201_response'
-          description: Pre-registro aceptado exitosamente.
+                $ref: '#/components/schemas/crearPreRegistro_201_response'
+          description: Registro creado exitosamente.
         "400":
-          description: Error en la validación de los datos (campos vacíos o formato
-            incorrecto).
-      summary: Enviar nuevo pre-registro de paciente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error de validación (campos faltantes o formatos incorrectos).
+      summary: Registrar un nuevo paciente para facturación
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -35,22 +45,26 @@ components:
   schemas:
     PreRegistro:
       example:
-        full_name: Nicolas Casamen
+        full_name: Sebastian Casamen
         insurance_code: IESS
         patient_id: "1001"
         appointment_date: 2026-04-22
       properties:
         patient_id:
+          description: Identificador único del paciente.
           example: "1001"
           type: string
         full_name:
-          example: Nicolas Casamen
+          description: Nombre y apellido del paciente.
+          example: Sebastian Casamen
           type: string
         appointment_date:
+          description: Fecha de la cita en formato YYYY-MM-DD.
           example: 2026-04-22
           format: date
           type: string
         insurance_code:
+          description: Código de la entidad aseguradora.
           enum:
           - IESS
           - PRIVADO
@@ -63,15 +77,28 @@ components:
       - insurance_code
       - patient_id
       type: object
-    _pre_registros_post_201_response:
+    ErrorResponse:
       example:
-        id: id
-        mensaje: Registro procesado
+        codigo: INVALID_FORMAT
+        detalle: La fecha debe cumplir el formato YYYY-MM-DD
       properties:
-        id:
+        codigo:
+          example: INVALID_FORMAT
           type: string
+        detalle:
+          example: La fecha debe cumplir el formato YYYY-MM-DD
+          type: string
+      type: object
+    crearPreRegistro_201_response:
+      example:
+        id_transaccion: SV-2026-99887
+        mensaje: Pre-registro recibido correctamente
+      properties:
         mensaje:
-          example: Registro procesado
+          example: Pre-registro recibido correctamente
+          type: string
+        id_transaccion:
+          example: SV-2026-99887
           type: string
       type: object
 

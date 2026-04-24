@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: API de Integración Clínica SaludVital - Admisiones
+  description: Contrato de interfaz para la transición del modelo de transferencia de archivos a una integración basada en servicios REST en tiempo real. Permite el envío de pre-registros de pacientes desde Admisiones hacia Facturación.
+  version: 1.0.0
+  contact:
+    name: Sebastian Nicolas Casamen Cuichan
+    email: sncasamen@udla.edu.ec
+
+servers:
+  - url: https://api.saludvital.com/v1
+    description: Servidor de producción
+
+paths:
+  /pre-registros:
+    post:
+      summary: Registrar un nuevo paciente para facturación
+      description: Envía los datos de un paciente que ha agendado una atención para su procesamiento financiero inmediato.
+      operationId: crearPreRegistro
+      requestBody:
+        description: Objeto JSON con la información obligatoria del paciente.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreRegistro'
+      responses:
+        '201':
+          description: Registro creado exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Pre-registro recibido correctamente"
+                  id_transaccion:
+                    type: string
+                    example: "SV-2026-99887"
+        '400':
+          description: Error de validación (campos faltantes o formatos incorrectos).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    PreRegistro:
+      type: object
+      required: [patient_id, full_name, appointment_date, insurance_code]
+      properties:
+        patient_id:
+          type: string
+          description: Identificador único del paciente.
+          example: "1001"
+        full_name:
+          type: string
+          description: Nombre y apellido del paciente.
+          example: "Nicolas Casamen"
+        appointment_date:
+          type: string
+          format: date
+          description: Fecha de la cita en formato YYYY-MM-DD.
+          example: "2026-04-22"
+        insurance_code:
+          type: string
+          description: Código de la entidad aseguradora.
+          enum: [IESS, PRIVADO, NINGUNO]
+          example: "IESS"
+
+    ErrorResponse:
+      type: object
+      properties:
+        codigo:
+          type: string
+          example: "INVALID_FORMAT"
+        detalle:
+          type: string
+          example: "La fecha debe cumplir el formato YYYY-MM-DD"
